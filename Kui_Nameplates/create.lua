@@ -116,10 +116,10 @@ function addon:UpdateHealthText(f, trivial)
 
         if self.db.profile.general.leftie then
             f.health.p:SetPoint('BOTTOMRIGHT', f.health, 'TOPRIGHT',
-                                -2.5, -self.db.profile.text.testoffset)
+                                -2.5, -self.db.profile.text.levelhealthoffset)
         else
             f.health.p:SetPoint('TOPRIGHT', f.health, 'BOTTOMRIGHT',
-                                -2.5, self.db.profile.text.testoffset + 4)
+                                -2.5, self.db.profile.text.levelhealthoffset + 4)
         end
     end
 end
@@ -147,7 +147,7 @@ function addon:UpdateAltHealthText(f, trivial)
 
         if self.db.profile.general.leftie then
             f.health.mo:SetPoint('TOPRIGHT', f.health, 'BOTTOMRIGHT',
-                                 -2.5, self.db.profile.text.healthoffset + 3)
+                                 -2.5, self.db.profile.text.nameoffset + 3)
         else
             f.health.mo:SetPoint('BOTTOMRIGHT', f.health.p, 'BOTTOMLEFT',0, 0)
         end
@@ -182,7 +182,7 @@ function addon:UpdateLevel(f, trivial)
     else
         f.level:Show()
         f.level:SetPoint('TOPLEFT', f.health, 'BOTTOMLEFT',
-                         2.5, self.db.profile.text.testoffset + 4)
+                         2.5, self.db.profile.text.levelhealthoffset + 4)
     end
 end
 ------------------------------------------------------------------- Name text --
@@ -204,20 +204,20 @@ function addon:UpdateName(f, trivial)
 	end
 
     if trivial then
-        f.name:SetPoint('BOTTOM', f.health, 'TOP', offset, -self.db.profile.text.healthoffset)
+        f.name:SetPoint('BOTTOM', f.health, 'TOP', offset, -self.db.profile.text.nameoffset)
 		f.name:SetWidth(addon.sizes.frame.twidth * 2)
 		f.name:SetJustifyH('CENTER')
     else
         if self.db.profile.general.leftie then
             f.name:SetPoint('BOTTOMLEFT', f.health, 'TOPLEFT',
-                            2.5, -self.db.profile.text.healthoffset)
+                            2.5, -self.db.profile.text.nameoffset)
 
             f.name:SetPoint('RIGHT', f.health.p, 'LEFT')
             f.name:SetJustifyH('LEFT')
         else
             -- move to top center
             f.name:SetPoint('BOTTOM', f.health, 'TOP',
-                            offset, -self.db.profile.text.healthoffset)
+                            offset, -self.db.profile.text.nameoffset)
 			f.name:SetWidth(addon.sizes.frame.width * 2)
         end
     end

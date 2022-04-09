@@ -92,8 +92,8 @@ local defaults = {
         },
         text = {
             level        = true, -- display levels
-            healthoffset = 2.5,
-            testoffset = 2.5,
+            nameoffset = 2.5,
+            levelhealthoffset = 2.5,
         },
         hp = {
             friendly  = '<:d;', -- health display pattern for friendly units
@@ -369,20 +369,20 @@ addon.configChangedFuncs.fontscale = function(frame, val)
 end
 addon.configChangedFuncs.onesize = addon.configChangedFuncs.fontscale
 
-addon.configChangedFuncs.runOnce.healthoffset = function(val)
-    addon:RegisterSize('tex', 'healthOffset', val)
+addon.configChangedFuncs.runOnce.nameoffset = function(val)
+    addon:RegisterSize('tex', 'nameoffset', val)
 end
-addon.configChangedFuncs.healthoffset = function(frame, val)
+addon.configChangedFuncs.nameoffset = function(frame, val)
     addon:UpdateHealthText(frame, frame.trivial)
     addon:UpdateAltHealthText(frame, frame.trivial)
     addon:UpdateLevel(frame, frame.trivial)
     addon:UpdateName(frame, frame.trivial)
 end
 
-addon.configChangedFuncs.runOnce.testoffset = function(val)
-    addon:RegisterSize('tex', 'testoffset', val)
+addon.configChangedFuncs.runOnce.levelhealthoffset = function(val)
+    addon:RegisterSize('tex', 'levelhealthoffset', val)
 end
-addon.configChangedFuncs.testoffset = function(frame, val)
+addon.configChangedFuncs.levelhealthoffset = function(frame, val)
     addon:UpdateHealthText(frame, frame.trivial)
     addon:UpdateAltHealthText(frame, frame.trivial)
     addon:UpdateLevel(frame, frame.trivial)
@@ -469,8 +469,8 @@ function addon:OnEnable()
     self.defaultSizes.frame.width = self.db.profile.general.width
     self.defaultSizes.frame.twidth = self.db.profile.general.twidth
 
-    self.defaultSizes.tex.healthOffset = self.db.profile.text.healthoffset
-    self.defaultSizes.tex.testoffset = self.db.profile.text.testoffset
+    self.defaultSizes.tex.nameoffset = self.db.profile.text.nameoffset
+    self.defaultSizes.tex.levelhealthoffset = self.db.profile.text.levelhealthoffset
     self.defaultSizes.tex.targetGlowW = self.defaultSizes.frame.width - 5
     self.defaultSizes.tex.ttargetGlowW = self.defaultSizes.frame.twidth - 5
 

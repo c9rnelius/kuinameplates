@@ -331,23 +331,23 @@ do
                 type = 'group',
                 order = 3,
                 args = {
-                    healthoffset = {
+                    nameoffset = {
                         name = 'Name offset (prior healthbar offset)',
                         desc = 'Offset of the text on the top and bottom of the health bar: level, name, standard health and contextual health. The offset is reversed for contextual health.\n'..
                                'Note that the default values end in .5 as this prevents jittering text, but only if "fix aliasing" is also enabled.',
                         type = 'range',
                         step = .5,
-                        softMin = -5,
-                        softMax = 10,
+                        softMin = -20,
+                        softMax = 20,
                         order = 1
                     },
-                    testoffset = {
+                    levelhealthoffset = {
                         name = 'Level / health offset',
                         desc = 'Offset the level display.',
                         type = 'range',
                         step = .5,
-                        softMin = -5,
-                        softMax = 10,
+                        softMin = -20,
+                        softMax = 20,
                         order = 2
                     },
                     level = {
