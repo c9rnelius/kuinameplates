@@ -246,9 +246,11 @@ local function GetAuraButton(self, spellId, icon, count, duration, expirationTim
 		button.time = self.frame:CreateFontString(button.time, {
 			reset = true, size = 'small' })
 	else
+
+		-- print(mod.db.profile.display.auraIconHeight)
 		-- normal size!
-		button:SetHeight(addon.sizes.frame.auraHeight)
-		button:SetWidth(addon.sizes.frame.auraWidth)
+		button:SetHeight(mod.db.profile.display.auraIconHeight)
+		button:SetWidth(mod.db.profile.display.auraIconWidth)
 		button.time = self.frame:CreateFontString(button.time, {
 			reset = true, size = 'large' })
 	end
@@ -496,8 +498,25 @@ function mod:GetOptions()
 					softMax = 30,
 					step = 0.5
 				},
-
-			}
+				auraIconWidth = {
+					name = 'Aura Icon Width',
+					desc = 'Aura Icon Width',
+					type = 'range',
+					order = 60,
+					min = 5,
+					softMax = 60,
+					step = 1
+				},
+				auraIconHeight = {
+					name = 'Aura Icon Height',
+					desc = 'Aura Icon Height',
+					type = 'range',
+					order = 70,
+					min = 5,
+					softMax = 60,
+					step = 1
+				}
+			},
 		},
 		behav = {
 			name = 'Behaviour',
@@ -514,8 +533,8 @@ function mod:GetOptions()
 					type = 'toggle',
 					order = 0,
 				},
-			}
-		}
+			},
+		},
 	}
 end
 
@@ -531,7 +550,9 @@ function mod:OnInitialize()
 				lengthMin = 0,
 				lengthMax = -1,
 				auraYOffset = 10,
-				auraXOffset = 0
+				auraXOffset = 0,
+				auraIconWidth = 29,
+				auraIconHeight = 20
 			},
 			behav = {
 				useWhitelist = true,
@@ -539,13 +560,12 @@ function mod:OnInitialize()
 		}
 	})
 
-	addon:RegisterSize('frame', 'auraHeight',  14)
-	addon:RegisterSize('frame', 'auraWidth',   20)
+	addon:RegisterSize('frame', self.db.profile.display.auraIconHeight) --14
+	addon:RegisterSize('frame', self.db.profile.display.auraIconWidth) --20
 	addon:RegisterSize('frame', 'tauraHeight',  9)
 	addon:RegisterSize('frame', 'tauraWidth',  15)
 	addon:RegisterSize('frame', self.db.profile.display.auraYOffset)
 	addon:RegisterSize('frame', self.db.profile.display.auraXOffset)
-	-- addon:RegisterSize('frame', 'aurasOffset', 50)
 	addon:RegisterSize('frame', 'taurasOffset', 13)
 
 	addon:InitModuleOptions(self)
