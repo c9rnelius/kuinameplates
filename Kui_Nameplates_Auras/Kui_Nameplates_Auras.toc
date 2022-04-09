@@ -1,0 +1,13 @@
+## Interface: 50400
+## Author: Kesava
+## Title: |cff9900ffKui|r Nameplates Auras
+## Notes: Aura display plugin for Kui Nameplates
+## Dependencies: Kui_Nameplates
+## SavedVariables: KuiSpellListCustom
+## X-Curse-Packaged-Version: 239
+## X-Curse-Project-Name: KuiNameplates
+## X-Curse-Project-ID: kuinameplates
+## X-Curse-Repository-ID: wow/kuinameplates/mainline
+
+lib\embeds.xml
+auras.lua

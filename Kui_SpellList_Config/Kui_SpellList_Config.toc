@@ -1,0 +1,12 @@
+## Interface: 50400
+## Author: Kesava
+## Title: Kui |cff9966ffSpellList Config|r
+## Notes: Customise the whitelist used by Kui_Nameplates_Auras
+## OptionalDeps: Kui_Nameplates_Auras
+## SavedVariables: KuiSpellListCustom
+## X-Curse-Packaged-Version: 4
+## X-Curse-Project-Name: KuiSpellListConfig
+## X-Curse-Project-ID: kuispelllistconfig
+## X-Curse-Repository-ID: wow/kuispelllistconfig/mainline
+
+main.lua
