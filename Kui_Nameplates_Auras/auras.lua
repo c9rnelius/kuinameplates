@@ -227,8 +227,8 @@ local function GetAuraButton(self, spellId, icon, count, duration, expirationTim
 		
 		button.time = self.frame:CreateFontString(button,{
 			size = 'large' })
-		button.time:SetJustifyH('LEFT')
-		button.time:SetPoint(mod.db.profile.display.auraTextPosition, -2, 4)
+		button.time:SetJustifyH('LEFT') -- TODO ?
+		button.time:SetPoint(mod.db.profile.display.auraTextPosition, mod.db.profile.display.textXOffset, mod.db.profile.display.textYOffset) -- -2, 4
 		button.time:Hide()
 		
 		button.count = self.frame:CreateFontString(button, {
@@ -508,6 +508,24 @@ function mod:GetOptions()
 					values = PositionSelectList,
 					order = 50
 				},
+				textYOffset = {
+					name = 'Aura timer Y-offset',
+					desc = 'Y-offset relative to the set position.',
+					type = 'range',
+					order = 60,
+					min = -10,
+					softMax = 20,
+					step = 0.5
+				},
+				textXOffset = {
+					name = 'Aura timer x-offset',
+					desc = 'X-offset relative to the set position.',
+					type = 'range',
+					order = 70,
+					min = -10,
+					softMax = 20,
+					step = 0.5
+				},
 			},
 		},
 		behav = {
@@ -589,11 +607,9 @@ function mod:OnInitialize()
 				lengthMin = 0,
 				lengthMax = -1,
 				auraFontSize = 9,
-				auraTextPosition = 'TOPLEFT'
---[[ 				auraYOffset = 10,
-				auraXOffset = 0,
-				auraIconWidth = 29,
-				auraIconHeight = 20 ]]
+				auraTextPosition = 'TOPLEFT',
+				textYOffset = 0,
+				textXOffset = 0
 			},
 			behav = {
 				useWhitelist = true,
