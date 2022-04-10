@@ -249,8 +249,8 @@ local function GetAuraButton(self, spellId, icon, count, duration, expirationTim
 
 		-- print(mod.db.profile.display.auraIconHeight)
 		-- normal size!
-		button:SetHeight(mod.db.profile.display.auraIconHeight)
-		button:SetWidth(mod.db.profile.display.auraIconWidth)
+		button:SetHeight(mod.db.profile.auras.auraIconHeight)
+		button:SetWidth(mod.db.profile.auras.auraIconWidth)
 		button.time = self.frame:CreateFontString(button.time, {
 			reset = true, size = 'large' })
 	end
@@ -312,7 +312,7 @@ function mod:Show(msg, frame)
 			3, addon.sizes.frame.taurasOffset)
 	else
 		frame.auras:SetPoint('BOTTOMLEFT', frame.health, 'BOTTOMLEFT',
-			self.db.profile.display.auraXOffset, self.db.profile.display.auraYOffset)
+			self.db.profile.auras.auraXOffset, self.db.profile.auras.auraYOffset)
 			-- addon.sizes.frame.aurasOffset)
 	end
 end
@@ -383,7 +383,7 @@ function mod:UNIT_AURA(event, unit)
 			local button = frame.auras:GetAuraButton(spellId, icon, count, duration, expirationTime)
 			frame.auras:Show()
 			frame.auras:SetPoint('BOTTOMLEFT', frame.health, 'BOTTOMLEFT',
-			self.db.profile.display.auraXOffset, self.db.profile.display.auraYOffset)
+			self.db.profile.auras.auraXOffset, self.db.profile.auras.auraYOffset)
 			button:Show()
 			button.used = true
 		end
@@ -480,6 +480,34 @@ function mod:GetOptions()
 					softMax= 1800,
 					step = 1
 				},
+			},
+		},
+		behav = {
+			name = 'Behaviour',
+			type = 'group',
+			inline = true,
+			disabled = function()
+				return not self.db.profile.enabled
+			end,
+			order = 4,
+			args = {
+				useWhitelist = {
+					name = 'Use whitelist',
+					desc = 'Only display spells which your class needs to keep track of for PVP or an effective DPS rotation. Most passive effects are excluded.\n\n|cff00ff00You can use KuiSpellListConfig from Curse.com to customise this list.',
+					type = 'toggle',
+					order = 0,
+				},
+			},
+		},
+		auras = {
+			name = 'Icons',
+			type = 'group',
+			inline = true,
+			disabled = function()
+				return not self.db.profile.enabled
+			end,
+			order = 5,
+			args = {
 				auraYOffset = {
 					name = 'Aura Y Offset',
 					desc = 'Y-Offset for Auras relative to health frame',
@@ -518,23 +546,6 @@ function mod:GetOptions()
 				}
 			},
 		},
-		behav = {
-			name = 'Behaviour',
-			type = 'group',
-			inline = true,
-			disabled = function()
-				return not self.db.profile.enabled
-			end,
-			order = 5,
-			args = {
-				useWhitelist = {
-					name = 'Use whitelist',
-					desc = 'Only display spells which your class needs to keep track of for PVP or an effective DPS rotation. Most passive effects are excluded.\n\n|cff00ff00You can use KuiSpellListConfig from Curse.com to customise this list.',
-					type = 'toggle',
-					order = 0,
-				},
-			},
-		},
 	}
 end
 
@@ -556,16 +567,22 @@ function mod:OnInitialize()
 			},
 			behav = {
 				useWhitelist = true,
+			},
+			auras = {
+				auraYOffset = 10,
+				auraXOffset = 0,
+				auraIconWidth = 29,
+				auraIconHeight = 20
 			}
 		}
 	})
 
-	addon:RegisterSize('frame', self.db.profile.display.auraIconHeight) --14
-	addon:RegisterSize('frame', self.db.profile.display.auraIconWidth) --20
+	addon:RegisterSize('frame', self.db.profile.auras.auraIconHeight) --14
+	addon:RegisterSize('frame', self.db.profile.auras.auraIconWidth) --20
 	addon:RegisterSize('frame', 'tauraHeight',  9)
 	addon:RegisterSize('frame', 'tauraWidth',  15)
-	addon:RegisterSize('frame', self.db.profile.display.auraYOffset)
-	addon:RegisterSize('frame', self.db.profile.display.auraXOffset)
+	addon:RegisterSize('frame', self.db.profile.auras.auraYOffset)
+	addon:RegisterSize('frame', self.db.profile.auras.auraXOffset)
 	addon:RegisterSize('frame', 'taurasOffset', 13)
 
 	addon:InitModuleOptions(self)
