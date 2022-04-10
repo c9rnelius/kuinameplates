@@ -24,6 +24,18 @@ local auraEvents = {
 	['SPELL_AURA_BROKEN_SPELL'] = true,
 }
 
+local PositionSelectList = {
+	['TOPLEFT'] = 'TOPLEFT',
+	['TOPRIGHT'] = 'TOPRIGHT',
+	['BOTTOMLEFT'] = 'BOTTOMLEFT',
+	['BOTTOMRIGHT'] = 'BOTTOMRIGHT',
+	['TOP'] = 'TOP',
+	['BOTTOM'] = 'BOTTOM',
+	['LEFT'] = 'LEFT',
+	['RIGHT'] = 'RIGHT',
+	['CENTER'] = 'CENTER'
+}
+
 local function ArrangeButtons(self)
 	local pv, pc
 	self.visible = 0
@@ -216,7 +228,7 @@ local function GetAuraButton(self, spellId, icon, count, duration, expirationTim
 		button.time = self.frame:CreateFontString(button,{
 			size = 'large' })
 		button.time:SetJustifyH('LEFT')
-		button.time:SetPoint('TOPLEFT', -2, 4)
+		button.time:SetPoint(mod.db.profile.display.auraTextPosition, -2, 4)
 		button.time:Hide()
 		
 		button.count = self.frame:CreateFontString(button, {
@@ -252,7 +264,7 @@ local function GetAuraButton(self, spellId, icon, count, duration, expirationTim
 		button:SetHeight(mod.db.profile.auras.auraIconHeight)
 		button:SetWidth(mod.db.profile.auras.auraIconWidth)
 		button.time = self.frame:CreateFontString(button.time, {
-			reset = true, size = 'large' })
+			reset = true, size = mod.db.profile.display.auraFontSize })
 	end
 	
 	button.icon:SetTexture(icon)
@@ -480,6 +492,22 @@ function mod:GetOptions()
 					softMax= 1800,
 					step = 1
 				},
+				auraFontSize = {
+					name = 'Aura font size',
+					desc = '',
+					type = 'range',
+					order = 40,
+					min = 1,
+					softMax = 20,
+					step = 0.5
+				},
+				auraTextPosition = {
+					name = 'Aura timer position',
+					desc = 'Choose the aura timer position.\n\n|cffff0000Reload of this to take effect, doing it in combat WILL brick the nameplates until reload.',
+					type = 'select',
+					values = PositionSelectList,
+					order = 50
+				},
 			},
 		},
 		behav = {
@@ -509,7 +537,7 @@ function mod:GetOptions()
 			order = 5,
 			args = {
 				auraYOffset = {
-					name = 'Aura Y Offset',
+					name = 'Aura Y-offset',
 					desc = 'Y-Offset for Auras relative to health frame',
 					type = 'range',
 					order = 40,
@@ -518,7 +546,7 @@ function mod:GetOptions()
 					step = 0.5
 				},
 				auraXOffset = {
-					name = 'Aura X Offset',
+					name = 'Aura X-offset',
 					desc = 'X-Offset for Auras relative to health frame',
 					type = 'range',
 					order = 50,
@@ -527,8 +555,8 @@ function mod:GetOptions()
 					step = 0.5
 				},
 				auraIconWidth = {
-					name = 'Aura Icon Width',
-					desc = 'Aura Icon Width',
+					name = 'Aura icon width',
+					desc = 'Aura icon width in pixels',
 					type = 'range',
 					order = 60,
 					min = 5,
@@ -536,8 +564,8 @@ function mod:GetOptions()
 					step = 1
 				},
 				auraIconHeight = {
-					name = 'Aura Icon Height',
-					desc = 'Aura Icon Height',
+					name = 'Aura icon height',
+					desc = 'Aura icon height in pixels',
 					type = 'range',
 					order = 70,
 					min = 5,
@@ -560,10 +588,12 @@ function mod:OnInitialize()
 				timerThreshold = 60,
 				lengthMin = 0,
 				lengthMax = -1,
-				auraYOffset = 10,
+				auraFontSize = 9,
+				auraTextPosition = 'TOPLEFT'
+--[[ 				auraYOffset = 10,
 				auraXOffset = 0,
 				auraIconWidth = 29,
-				auraIconHeight = 20
+				auraIconHeight = 20 ]]
 			},
 			behav = {
 				useWhitelist = true,
