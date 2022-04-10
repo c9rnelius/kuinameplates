@@ -1,5 +1,5 @@
 # kuinameplates
- kui nameplates for 5.4.8
+ kui nameplates for 5.4.8 - comes with [KuiSpelllistConfig](https://www.curseforge.com/wow/addons/kuispelllistconfig/files/all?filter-game-version=2020709689%3A474)
 
 added some stuff
 
